@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package smartcity;
+
+service SurveillanceService {
+  rpc SubmitFrame(FrameRequest) returns (FrameReply);
+  rpc GetState(StateRequest) returns (StateReply);
+}
+
+message FrameRequest {
+  string camera = 1;
+  int32 frame = 2;
+  string priority = 3;
+}
+
+message FrameReply {
+  bool accepted = 1;
+  string task_id = 2;
+  string node_id = 3;
+  string status = 4;
+}
+
+message StateRequest {}
+
+message StateReply {
+  repeated string nodes = 1;
+  int32 active_nodes = 2;
+  int32 processed_frames = 3;
+  float average_latency = 4;
+  int32 queue_depth = 5;
+}

@@ -1,0 +1,25 @@
+version: '3.9'
+services:
+  coordinator:
+    build: .
+    command: python server.py
+    ports:
+      - "8080:8080"
+    environment:
+      NODE_ROLE: coordinator
+    networks: [edge-fabric]
+  edge-node-1:
+    image: python:3.11-slim
+    command: python -c "import time; print('Edge-Node-1 simulated container'); time.sleep(86400)"
+    networks: [edge-fabric]
+  edge-node-2:
+    image: python:3.11-slim
+    command: python -c "import time; print('Edge-Node-2 simulated container'); time.sleep(86400)"
+    networks: [edge-fabric]
+  edge-node-3:
+    image: python:3.11-slim
+    command: python -c "import time; print('Edge-Node-3 simulated container'); time.sleep(86400)"
+    networks: [edge-fabric]
+networks:
+  edge-fabric:
+    driver: bridge
